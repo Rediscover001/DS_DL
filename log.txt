@@ -1,0 +1,22 @@
+<module 'time' (built-in)> Batch16 | Epochs3 | LR0.01 | Running Time: 69.7897424697876
+<class 'datetime.datetime'>-1737262576.608946 | Batch:16 | Epochs:3 | LR:0.01 | Running Time: 67.37721180915833S
+2025-01-19 13:03:52 | Batch:16 | Epochs:2 | LR:0.01 | Running Time: 40.31S
+2025-01-19 13:09:12 | Batch:17 | Epochs:2 | LR:0.01 | Running Time: 39.27s
+2025-01-19 13:30:26 | Batch:1 | Epochs:2 | LR:0.01 | Running Time: 37.47s | Accuracy:96.52
+2025-01-19 13:34:02 | Batch:1 | Epochs:2 | LR:0.01 | Running Time: 168.30s | Accuracy:96.81
+2025-01-19 13:36:49 | Batch:2 | Epochs:2 | LR:0.01 | Running Time: 166.79s | Accuracy:96.25
+2025-01-19 13:38:58 | Batch:2 | Epochs:2 | LR:0.01 | Running Time: 96.14s | Accuracy:97.16
+2025-01-19 13:40:14 | Batch:3 | Epochs:2 | LR:0.01 | Running Time: 76.04s | Accuracy:97.98
+2025-01-19 13:41:21 | Batch:4 | Epochs:2 | LR:0.01 | Running Time: 66.53s | Accuracy:98.44
+2025-01-19 13:42:20 | Batch:5 | Epochs:2 | LR:0.01 | Running Time: 59.41s | Accuracy:98.49
+2025-01-19 13:43:15 | Batch:6 | Epochs:2 | LR:0.01 | Running Time: 54.48s | Accuracy:98.49
+2025-01-19 13:44:07 | Batch:7 | Epochs:2 | LR:0.01 | Running Time: 51.84s | Accuracy:98.47
+2025-01-19 13:44:58 | Batch:8 | Epochs:2 | LR:0.01 | Running Time: 51.98s | Accuracy:98.49
+2025-01-19 13:45:40 | Batch:9 | Epochs:2 | LR:0.01 | Running Time: 41.94s | Accuracy:98.5
+2025-01-19 13:46:13 | Batch:10 | Epochs:2 | LR:0.01 | Running Time: 32.84s | Accuracy:98.51
+2025-01-19 13:46:45 | Batch:11 | Epochs:2 | LR:0.01 | Running Time: 31.36s | Accuracy:98.5
+2025-01-19 13:47:15 | Batch:12 | Epochs:2 | LR:0.01 | Running Time: 30.68s | Accuracy:98.5
+2025-01-19 13:47:45 | Batch:13 | Epochs:2 | LR:0.01 | Running Time: 29.91s | Accuracy:98.51
+2025-01-19 13:48:14 | Batch:14 | Epochs:2 | LR:0.01 | Running Time: 28.66s | Accuracy:98.51
+2025-01-19 13:48:42 | Batch:15 | Epochs:2 | LR:0.01 | Running Time: 27.97s | Accuracy:98.51
+2025-01-19 13:51:47 | Batch:16 | Epochs:2 | LR:0.01 | Running Time: 39.76s | Accuracy:96.6

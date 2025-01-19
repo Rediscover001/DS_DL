@@ -1,5 +1,8 @@
 # 导入必要的库
+from datetime import datetime
+
 import torch
+import time
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
@@ -8,10 +11,11 @@ from torch.utils.data import DataLoader
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
+
 # 定义超参数
-batch_size = 64  # 每批次的样本数量
+batch_size = 1  # 每批次的样本数量
 learning_rate = 0.01  # 学习率
-num_epochs = 5  # 训练轮数
+num_epochs = 2  # 训练轮数
 
 # 定义数据预处理
 transform = transforms.Compose([
@@ -23,24 +27,20 @@ transform = transforms.Compose([
 train_dataset = datasets.MNIST(root='./data', train=True, download=True, transform=transform)
 test_dataset = datasets.MNIST(root='./data', train=False, download=True, transform=transform)
 
-# 创建数据加载器
-train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
-test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
+
 
 # 定义神经网络模型
 class Net(nn.Module):
     def __init__(self):
         super(Net, self).__init__()
-        self.fc1 = nn.Linear(28*28, 1024)  # 全连接层，输入28x28，输出512
-        self.fc2 = nn.Linear(1024, 2048)  # 全连接层，输入512，输出256
-        self.fc3 = nn.Linear(2048, 256)  # 全连接层，输入256，输出10（对应10个类别）
-        self.fc4 = nn.Linear(256, 10)
+        self.fc1 = nn.Linear(28*28, 512)  # 全连接层，输入28x28，输出512
+        self.fc2 = nn.Linear(512, 1024)  # 全连接层，输入512，输出256
+        self.fc3 = nn.Linear(1024, 10)  # 全连接层，输入256，输出10（
     def forward(self, x):
         x = x.view(-1, 28 * 28)  # 将图像展平为一维向量
         x = F.relu(self.fc1(x))  # 第一层全连接 + ReLU激活
         x = self.fc2(x)  # 第二层全连接
         x = self.fc3(x)  # 第三层全连接（输出层）
-        x = self.fc4(x)
 
         return x
 
@@ -50,23 +50,30 @@ criterion = nn.CrossEntropyLoss()  # 交叉熵损失函数
 optimizer = optim.SGD(model.parameters(), lr=learning_rate)  # 随机梯度下降优化器
 
 # 训练模型
-for epoch in range(num_epochs):
-    for i, (images, labels) in enumerate(train_loader):
-        # 前向传播
-        model.train()
-        outputs = model(images)
-        loss = criterion(outputs, labels)
+for batch_size in range(16,17):
+    # 创建数据加载器
+    train_loader = DataLoader(dataset=train_dataset, batch_size=batch_size, shuffle=True)
+    test_loader = DataLoader(dataset=test_dataset, batch_size=batch_size, shuffle=False)
 
-        # 反向传播和优化
-        optimizer.zero_grad()  # 清空梯度
-        loss.backward()  # 计算梯度
-        optimizer.step()  # 更新参数
+    t1 = time.time()
+    for epoch in range(num_epochs):
+        for i, (images, labels) in enumerate(train_loader):
+            # 前向传播
+            model.train()
+            outputs = model(images)
+            loss = criterion(outputs, labels)
 
-        # 每100个批次打印一次损失
-        if (i + 1) % 100 == 0:
-            print(f'Epoch [{epoch + 1}/{num_epochs}], Step [{i + 1}/{len(train_loader)}], Loss: {loss.item():.4f}')
+            # 反向传播和优化
+            optimizer.zero_grad()  # 清空梯度
+            loss.backward()  # 计算梯度
+            optimizer.step()  # 更新参数
 
-# 测试模型
+            # 每100个批次打印一次损失
+            """
+            if (i + 1) % 100 == 0:
+                print(f'Epoch [{epoch + 1}/{num_epochs}], Step [{i + 1}/{len(train_loader)}], Loss: {loss.item():.4f}')
+            """
+    # 测试模型
     model.eval()  # 设置模型为评估模式
     with torch.no_grad():  # 不计算梯度
         correct = 0
@@ -77,8 +84,13 @@ for epoch in range(num_epochs):
             total += labels.size(0)
             correct += (predicted == labels).sum().item()
 
-        print(f'Test Accuracy: {100 * correct / total:.2f}%')
+        #print(f'Test Accuracy: {100 * correct / total:.2f}%')
+        Test_Accuracy=100 * correct / total
+    t2 = time.time()
+    print(f"Time taken for {num_epochs} epoch {t2 - t1}")
 
+    with open(file = "log.txt", mode = "a+") as log:
+        log.write(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} | Batch:{batch_size} | Epochs:{num_epochs} | LR:{learning_rate} | Running Time: {(t2 - t1):.2f}s | Accuracy:{Test_Accuracy}\n")
 """
 代码说明
 
